@@ -1,16 +1,14 @@
 'use strict';
 
-describe('myContacts.view2 module', function() {
+angular.module('myContacts.contacts', ['ngRoute'])
 
-  beforeEach(module('myContacts.view2'));
+.config(['$routeProvider', function($routeProvider){
+	$routeProvider.when('/contacts',{
+		templateUrl: 'contacts/contacts.html',
+		controller: 'ContactsCtrl'
+	});
+}])
 
-  describe('view2 controller', function(){
+.controller('ContactsCtrl', [function(){
 
-    it('should ....', inject(function($controller) {
-      //spec body
-      var contactsCtrl = $controller('ContactsCtrl');
-      expect(contacts2Ctrl).toBeDefined();
-    }));
-
-  });
-});
+}]);
