@@ -28,6 +28,7 @@ angular.module('myContacts.contacts', ['ngRoute'])
 		// this passes all the current values in the form;
 		$scope.id 				  = contact.$id;
 		$scope.name				  = contact.name;
+		$scope.email			  = contact.email;
 		$scope.company			  = contact.company;
 		$scope.work_phone         = contact.phones[0].work;
 		$scope.home_phone         = contact.phones[0].home;
@@ -141,7 +142,12 @@ angular.module('myContacts.contacts', ['ngRoute'])
 		// this will show contact info on top
 		$scope.contactShow = true;       ;
 	}
-		// This will clear form fields after submitting data
+	$scope.removeContact = function(contact){
+		$scope.contacts.$remove(contact);
+		$scope.msg = "Contact Removed";
+		
+	}
+	// This will clear form fields after submitting data
 	var clearFields = function(){
 		// assign contact values
 		$scope.name= "";
