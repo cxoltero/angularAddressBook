@@ -17,4 +17,7 @@ angular.module('myContacts.contacts', ['ngRoute'])
 	$scope.showAddForm = function(){
 		$scope.addFormShow = true;
 	}
+	$scope.hide = function(){
+		$scope.addFormShow = false;
+	}
 }]);
