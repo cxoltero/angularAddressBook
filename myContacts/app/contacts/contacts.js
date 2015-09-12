@@ -21,9 +21,27 @@ angular.module('myContacts.contacts', ['ngRoute'])
 		$scope.addFormShow = true;
 	}
 
+	// show the edit form
+	$scope.showEditForm = function(contact){
+		$scope.editFormShow = true;
+
+		// this passes all the current values in the form;
+		$scope.id 				  = contact.$id;
+		$scope.name				  = contact.name;
+		$scope.company			  = contact.company;
+		$scope.work_phone         = contact.phones[0].work;
+		$scope.home_phone         = contact.phones[0].home;
+		$scope.mobile_phone       = contact.phones[0].mobile;
+		$scope.street_address     = contact.address[0].street_address;
+		$scope.city               = contact.address[0].city;
+		$scope.state              = contact.address[0].state;
+		$scope.zipcode            = contact.address[0].zipcode; 
+	}
+
 	// hide current form
 	$scope.hide = function(){
 		$scope.addFormShow = false;
+		$scope.contactShow = false;
 	}
 
 	// submit contat to firebase
@@ -69,6 +87,59 @@ angular.module('myContacts.contacts', ['ngRoute'])
 			// send message to user
 			$scope.msg = "Contact Added";
 		});
+	}
+
+	// Edit form 
+	$scope.editFormSubmit = function(){
+		console.log("editing contact info");
+		// to get contact id
+		var id = $scope.id;
+
+		// get specific record for id
+		var record = $scope.contacts.$getRecord(id);
+		console.log("id ="+id);
+		console.log("record = "+record);
+
+		record.name				           =  $scope.name;
+		record.email				       =  $scope.email;
+		record.company				       =  $scope.company;
+		record.phones[0].work			   =  $scope.work_phone;
+		record.phones[0].home			   =  $scope.home_phone;
+		record.phones[0].mobile		 	   =  $scope.mobile_phone; 
+		record.address[0].street_address   =  $scope.street_address;
+		record.address[0].city			   =  $scope.city;  
+		record.address[0].state			   =  $scope.state;  
+		record.address[0].zipcode		   =  $scope.zipcode; 
+
+		// to save changes to contacts
+		$scope.contacts.$save(record).then(function(ref){
+			console.log(ref.key);
+		});
+
+		// clear fields
+		clearFields();
+
+		// hide edit form
+		$scope.editFormShow = false;
+		$scope.msn ="Contact Updated";
+
+	}
+
+	// this will show the contact info
+	$scope.showContact = function(contact){
+		$scope.name = contact.name;
+		$scope.company = contact.company;
+		$scope.work_phone         = contact.phones[0].work;
+		$scope.home_phone         = contact.phones[0].home;
+		$scope.mobile_phone       = contact.phones[0].mobile;
+		$scope.street_address     = contact.address[0].street_address;
+		$scope.city               = contact.address[0].city;
+		$scope.state              = contact.address[0].state;
+		$scope.zipcode            = contact.address[0].zipcode; 
+
+
+		// this will show contact info on top
+		$scope.contactShow = true;       ;
 	}
 		// This will clear form fields after submitting data
 	var clearFields = function(){
