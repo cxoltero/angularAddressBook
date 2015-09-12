@@ -92,6 +92,7 @@ angular.module('myContacts.contacts', ['ngRoute'])
 
 	// Edit form 
 	$scope.editFormSubmit = function(){
+
 		console.log("editing contact info");
 		// to get contact id
 		var id = $scope.id;
