@@ -68,6 +68,21 @@ angular.module('myContacts.contacts', ['ngRoute'])
 
 			// send message to user
 			$scope.msg = "Contact Added";
-		})
+		});
 	}
+		// This will clear form fields after submitting data
+	var clearFields = function(){
+		// assign contact values
+		$scope.name= "";
+		$scope.email= "";
+		$scope.company= "";
+		$scope.mobile_phone= "";
+		$scope.home_phone= "";
+		$scope.work_phone= "";
+		$scope.street_address= "";
+		$scope.city= "";
+		$scope.state= "";	
+		$scope.zipcode= "";
+	}
+
 }]);
